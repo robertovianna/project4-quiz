@@ -2,7 +2,7 @@
 
   <div>
     
-    <ScoreBoard />
+    <ScoreBoard :winCount="this.winCount" :loseCount="loseCount"/>
 
     <template v-if="this.question">
       <!-- uma das formas de exibir a pergunta na tela é com {{ this.question }}-->
@@ -53,12 +53,16 @@ export default {
     //criar as propriedades (questões, respostas corretas,respostas incorretas)
     //chosen_answer para enviar ao console a resposta marcada
     //ansewerSubmitted controla se ja enviou alguma resposta ou não (será usado para desabilitar o botão apos envio)
+    //winCount e loseCount para fazer a contagem de pontos
     return {
       question: undefined,
       incorrectAnswers: undefined,
       correctAnswer: undefined,
       chosen_answer: undefined,
       answerSubmitted: false,
+      winCount: 0, 
+      loseCount: 0,
+       
     }
 
   },
@@ -83,9 +87,9 @@ export default {
       } else {
         this.answerSubmitted = true;
         if (this.chosen_answer == this.correctAnswer) {
-          console.log('Você acertou');
+          this.winCount++;
         } else {
-          console.log('Você errou');
+          this.loseCount++;
         }
       }
     },
